@@ -6,15 +6,17 @@ import javax.swing.JOptionPane;
 
 public class Main {
 
-	public static void main(String[] args) throws SQLException 
+	public static Connection connect() throws SQLException 
 	{
 		Connection con = DriverManager.getConnection(
 		        "jdbc:sqlserver://LAPTOP-GT12R9UA\\SQLEXPRESS:1433;database=QTipsSystem;", "user","password");
-		String question = JOptionPane.showInputDialog(null, "Enter the students question");
+		//String question = JOptionPane.showInputDialog(null, "Enter the students question");
 	    //addTheme(con);
 	    
-	    String theme=findTheme(question, con);
-	    JOptionPane.showMessageDialog(null, "The theme is "+theme);
+	    //String theme=findTheme(question, con);
+	    //JOptionPane.showMessageDialog(null, "The theme is "+theme);
+		
+		return con;
 
 	}
 	
