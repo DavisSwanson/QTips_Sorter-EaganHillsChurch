@@ -2,7 +2,7 @@ package QTips_Sorting_System;
 
 import java.sql.*;
 import java.util.Arrays;
-import javax.swing.JOptionPane;
+
 
 public class Main {
 
@@ -10,37 +10,37 @@ public class Main {
 	{
 		Connection con = DriverManager.getConnection(
 		        "jdbc:sqlserver://LAPTOP-GT12R9UA\\SQLEXPRESS:1433;database=QTipsSystem;", "user","password");
-		//String question = JOptionPane.showInputDialog(null, "Enter the students question");
-	    //addTheme(con);
-	    
-	    //String theme=findTheme(question, con);
-	    //JOptionPane.showMessageDialog(null, "The theme is "+theme);
-		
 		return con;
 
 	}
 	
-	public static void addTheme(Connection con) throws SQLException {
-		String[] themes = getThemes(con);
-		boolean cont=true;
-		String theme="";
-		while(cont) {
-			cont=false;
-			theme = JOptionPane.showInputDialog(null,"Enter a theme to add");
-			for(String t : themes) {
-				if(t.equals(theme)) {
-					JOptionPane.showMessageDialog(null, "That theme has already been added.\n");
-					cont=true;
-				}
-			}
-		}
+	public static void addQuestion(String question) throws SQLException {
+		Connection con = connect();
+		String theme = findTheme(question);
 		
-		PreparedStatement addTheme = con.prepareStatement("INSERT INTO Themes VALUES ('"+theme+"')");
-	    addTheme.executeUpdate();
-		
+		PreparedStatement addQuestion = con.prepareStatement("INSERT INTO Question (theme, contents) VALUES ('"+theme+"','"+question+"')");
+		addQuestion.executeUpdate();
 	}
 	
-	public static String[] getThemes(Connection con) throws SQLException {
+	public static void addTheme(String theme) throws SQLException, ThemeExistsException {
+		Connection con = connect();
+		String[] themes = getThemes();
+		boolean add=true;
+		for(String t : themes) {
+			if(t.equals(theme)) {
+				throw new ThemeExistsException("Error", null);
+			}
+		}
+		if(add==true) {
+			System.out.print("test");
+			PreparedStatement addTheme = con.prepareStatement("INSERT INTO Themes VALUES ('"+theme+"')");
+		    addTheme.executeUpdate();
+		}
+	}
+		
+		
+	public static String[] getThemes() throws SQLException {
+		Connection con = connect();
 		PreparedStatement stmt = con.prepareStatement("SELECT theme FROM Themes");
 		PreparedStatement stmt2 = con.prepareStatement("SELECT theme FROM Themes");
 		
@@ -61,10 +61,9 @@ public class Main {
 	    return themes;
 	}
 	
-	public static String findTheme(String s, Connection con) throws SQLException
+	public static String findTheme(String s) throws SQLException
 	{
-		
-		String[] themes = getThemes(con);
+		String[] themes = getThemes();
 		
 	    String[] question = null;
 		question=s.split(" ");

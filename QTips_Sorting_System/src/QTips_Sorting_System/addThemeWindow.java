@@ -13,11 +13,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.sql.*;
+
 
 public class addThemeWindow {
 
 	private JFrame frame;
 	private JTextField textField;
+	
 
 	/**
 	 * Launch the application.
@@ -56,16 +60,37 @@ public class addThemeWindow {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(148, 142, 206, 21);
+		frame.getContentPane().add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e){
 				String theme = textField.getText();
-				JOptionPane.showMessageDialog(null, "Theme is "+theme);
+				try{Main.addTheme(theme); lblNewLabel_1.setText("Theme Added");}
+				catch(SQLException ex) {lblNewLabel_1.setText("Database error");}
+				catch(ThemeExistsException ex) {lblNewLabel_1.setText("Theme has already\n been added");}
 			}
 		});
 		btnNewButton.setBounds(279, 112, 85, 21);
 		frame.getContentPane().add(btnNewButton);
+		
+		JLabel lblNewLabel = new JLabel("Add New Theme");
+		lblNewLabel.setBounds(158, 74, 121, 30);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JButton btnNewButton_1 = new JButton("Back");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				mainWindow.openWindow();
+			}
+		});
+		btnNewButton_1.setBounds(279, 205, 85, 21);
+		frame.getContentPane().add(btnNewButton_1);
+		
+		
 
 	}
 }

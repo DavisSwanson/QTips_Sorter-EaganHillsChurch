@@ -20,6 +20,9 @@ public class mainWindow {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		openWindow();
+	}
+	public static void openWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
