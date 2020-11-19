@@ -22,6 +22,32 @@ public class Main {
 		addQuestion.executeUpdate();
 	}
 	
+	public static String[][] getQuestions(String theme) throws SQLException, ThemeMissingException {
+		Connection con = connect();
+		
+		PreparedStatement stmt = con.prepareStatement("SELECT entryID FROM Question WHERE theme='"+theme+"'");
+		PreparedStatement stmt2 = con.prepareStatement("SELECT theme, contents FROM Question WHERE theme='"+theme+"'");
+		
+		ResultSet rslt = stmt.executeQuery();
+		ResultSet rslt2 = stmt2.executeQuery();
+		
+		String[] themes = getThemes(); boolean exists=false;
+		for(String t : themes) {if(t.equals(theme)){exists=true;}};
+		if(exists==false) {throw new ThemeMissingException("",null);};
+		int rows=0;
+	    while(rslt.next()) {rows++;}
+	    
+	    String[][] questions = new String[rows][2];
+	    
+	    int i=0; while(rslt2.next()) {
+	    	questions[i][0]=rslt2.getString("theme");
+	    	questions[i][1]=rslt2.getString("contents");
+	    }
+	    
+	    return questions;
+		
+	}
+	
 	public static void addTheme(String theme) throws SQLException, ThemeExistsException {
 		Connection con = connect();
 		String[] themes = getThemes();

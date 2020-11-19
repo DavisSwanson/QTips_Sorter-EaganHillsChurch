@@ -56,7 +56,7 @@ public class addThemeWindow {
 		frame.getContentPane().setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(148, 113, 121, 19);
+		textField.setBounds(148, 113, 144, 19);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
@@ -69,15 +69,15 @@ public class addThemeWindow {
 			public void actionPerformed(ActionEvent e){
 				String theme = textField.getText();
 				try{Main.addTheme(theme); lblNewLabel_1.setText("Theme Added");}
-				catch(SQLException ex) {lblNewLabel_1.setText("Database error");}
+				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());}
 				catch(ThemeExistsException ex) {lblNewLabel_1.setText("Theme has already\n been added");}
 			}
 		});
-		btnNewButton.setBounds(279, 112, 85, 21);
+		btnNewButton.setBounds(320, 112, 85, 21);
 		frame.getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Add New Theme");
-		lblNewLabel.setBounds(158, 74, 121, 30);
+		lblNewLabel.setBounds(171, 76, 121, 30);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButton_1 = new JButton("Back");
@@ -87,7 +87,7 @@ public class addThemeWindow {
 				mainWindow.openWindow();
 			}
 		});
-		btnNewButton_1.setBounds(279, 205, 85, 21);
+		btnNewButton_1.setBounds(320, 172, 85, 21);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		

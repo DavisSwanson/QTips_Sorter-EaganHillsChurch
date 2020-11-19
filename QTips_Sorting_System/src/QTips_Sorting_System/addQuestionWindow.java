@@ -9,11 +9,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.*;
+import javax.swing.JTextArea;
 
 public class addQuestionWindow {
 
 	private JFrame frame;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -47,11 +47,6 @@ public class addQuestionWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(135, 73, 156, 75);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
-		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(135, 158, 156, 20);
 		frame.getContentPane().add(lblNewLabel_1);
@@ -60,12 +55,18 @@ public class addQuestionWindow {
 		lblNewLabel.setBounds(175, 37, 73, 26);
 		frame.getContentPane().add(lblNewLabel);
 		
+		JTextArea textArea = new JTextArea();
+		textArea.setWrapStyleWord(true);
+		textArea.setLineWrap(true);
+		textArea.setBounds(135, 73, 149, 78);
+		frame.getContentPane().add(textArea);
+		
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String question = textField.getText();
+				String question = textArea.getText();
 				try{Main.addQuestion(question); lblNewLabel_1.setText("Question Added");}
-				catch(SQLException ex) {System.out.print(ex);}
+				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());}
 			}
 		});
 		btnNewButton.setBounds(320, 100, 85, 21);
@@ -78,8 +79,9 @@ public class addQuestionWindow {
 				mainWindow.openWindow();
 			}
 		});
-		btnNewButton_1.setBounds(320, 174, 85, 21);
+		btnNewButton_1.setBounds(320, 172, 85, 21);
 		frame.getContentPane().add(btnNewButton_1);
+		
 		
 		
 	}
