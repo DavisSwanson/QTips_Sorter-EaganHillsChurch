@@ -65,7 +65,7 @@ public class addQuestionWindow {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String question = textArea.getText();
-				try{Main.addQuestion(question); lblNewLabel_1.setText("Question Added");}
+				try{Main.addQuestion(question.toLowerCase()); lblNewLabel_1.setText("Question Added");}
 				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());}
 			}
 		});

@@ -61,7 +61,7 @@ public class addThemeWindow {
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(148, 142, 206, 21);
+		lblNewLabel_1.setBounds(116, 142, 194, 21);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Add");
@@ -76,6 +76,16 @@ public class addThemeWindow {
 		btnNewButton.setBounds(320, 112, 85, 21);
 		frame.getContentPane().add(btnNewButton);
 		
+		JButton btnNewButton_2 = new JButton("Delete");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String theme=textField.getText();
+				try{Main.deleteTheme(theme.toLowerCase()); lblNewLabel_1.setText("Theme Deleted");}
+				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());System.out.print(ex);}
+				catch(ThemeMissingException ex) {lblNewLabel_1.setText("That theme doesn't exist");}
+			}
+		});
+		
 		JLabel lblNewLabel = new JLabel("Add New Theme");
 		lblNewLabel.setBounds(171, 76, 121, 30);
 		frame.getContentPane().add(lblNewLabel);
@@ -89,6 +99,10 @@ public class addThemeWindow {
 		});
 		btnNewButton_1.setBounds(320, 172, 85, 21);
 		frame.getContentPane().add(btnNewButton_1);
+		
+		
+		btnNewButton_2.setBounds(320, 142, 85, 21);
+		frame.getContentPane().add(btnNewButton_2);
 		
 		
 

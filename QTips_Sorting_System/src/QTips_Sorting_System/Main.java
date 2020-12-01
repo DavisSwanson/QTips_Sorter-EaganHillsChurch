@@ -18,15 +18,34 @@ public class Main {
 		Connection con = connect();
 		String theme = findTheme(question);
 		
+		for(int i=0; i<question.length(); i++) {
+			if(Character.isWhitespace(question.charAt(i)));
+				if(i%30==0) {
+					question = question.substring(0,i) + "\n" + question.substring(i);}
+		}
+		
+		
+		
 		PreparedStatement addQuestion = con.prepareStatement("INSERT INTO Question (theme, contents) VALUES ('"+theme+"','"+question+"')");
 		addQuestion.executeUpdate();
+	}
+	
+	public static void deleteTheme(String theme) throws SQLException, ThemeMissingException {
+		Connection con = connect();
+		PreparedStatement stmt = con.prepareStatement("DELETE FROM Themes WHERE theme='"+theme.toLowerCase()+"'");
+		
+		String[] themes = getThemes(); boolean exists=false;
+		for(String t : themes) {if(t.equals(theme)){exists=true;}};
+		if(exists==false) {throw new ThemeMissingException("",null);};
+		
+		stmt.execute();
 	}
 	
 	public static String[][] getQuestions(String theme) throws SQLException, ThemeMissingException {
 		Connection con = connect();
 		
-		PreparedStatement stmt = con.prepareStatement("SELECT entryID FROM Question WHERE theme='"+theme+"'");
-		PreparedStatement stmt2 = con.prepareStatement("SELECT theme, contents FROM Question WHERE theme='"+theme+"'");
+		PreparedStatement stmt = con.prepareStatement("SELECT entryID FROM Question WHERE theme='"+theme.toLowerCase()+"'");
+		PreparedStatement stmt2 = con.prepareStatement("SELECT theme, contents FROM Question WHERE theme='"+theme.toLowerCase()+"'");
 		
 		ResultSet rslt = stmt.executeQuery();
 		ResultSet rslt2 = stmt2.executeQuery();
@@ -42,6 +61,7 @@ public class Main {
 	    int i=0; while(rslt2.next()) {
 	    	questions[i][0]=rslt2.getString("theme");
 	    	questions[i][1]=rslt2.getString("contents");
+	    	i++;
 	    }
 	    
 	    return questions;
@@ -53,13 +73,12 @@ public class Main {
 		String[] themes = getThemes();
 		boolean add=true;
 		for(String t : themes) {
-			if(t.equals(theme)) {
+			if(t.equals(theme.toLowerCase())) {
 				throw new ThemeExistsException("Error", null);
 			}
 		}
 		if(add==true) {
-			System.out.print("test");
-			PreparedStatement addTheme = con.prepareStatement("INSERT INTO Themes VALUES ('"+theme+"')");
+			PreparedStatement addTheme = con.prepareStatement("INSERT INTO Themes VALUES ('"+theme.toLowerCase()+"')");
 		    addTheme.executeUpdate();
 		}
 	}
