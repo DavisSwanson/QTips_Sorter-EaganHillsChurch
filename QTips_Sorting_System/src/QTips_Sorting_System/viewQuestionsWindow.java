@@ -1,9 +1,7 @@
 package QTips_Sorting_System;
 
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.ScrollPane;
 
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -12,12 +10,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import java.sql.*;
 
@@ -26,7 +20,8 @@ public class viewQuestionsWindow {
 
 	private JFrame frame;
 	private JTextField textField;
-	private JTable table;
+	private static JTable table = new JTable();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -46,6 +41,8 @@ public class viewQuestionsWindow {
 	/**
 	 * Create the application.
 	 */
+	
+
 	public viewQuestionsWindow() {
 		initialize();
 	}
@@ -66,7 +63,7 @@ public class viewQuestionsWindow {
 				mainWindow.openWindow();
 			}
 		});
-		btnNewButton.setBounds(320, 172, 85, 21);
+		btnNewButton.setBounds(308, 172, 97, 21);
 		frame.getContentPane().add(btnNewButton);
 		
 		textField = new JTextField();
@@ -78,21 +75,24 @@ public class viewQuestionsWindow {
 		lblNewLabel_1.setBounds(117, 220, 189, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(111,91,187,105);
+		frame.getContentPane().add(scrollPane);
+		
 		JButton btnNewButton_1 = new JButton("Search");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String[][] questions = {{"",""}};
+				String[][] questions = {{null,null}};
 				String[] header = {"Theme","Contents"};
 				String theme=textField.getText();
-				try{questions = Main.getQuestions(theme.toLowerCase());}
+				try{questions = Main.getQuestions(theme.toLowerCase()); lblNewLabel_1.setText("Displaying questions about "+theme);}
 				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());}
 				catch(ThemeMissingException ex) {lblNewLabel_1.setText("That theme has not been added.");};
-			
-				table = new JTable(questions, header);
 				
-				JScrollPane scrollPane = new JScrollPane();
-				scrollPane.setBounds(111,91,187,105);
-				frame.add(scrollPane);
+				DefaultTableModel model = new DefaultTableModel(questions,header);
+				table.setModel(model);
+				table.revalidate();
+				
 				scrollPane.setViewportView(table);
 		        
 				table.setEnabled(false);
@@ -110,13 +110,45 @@ public class viewQuestionsWindow {
 		});
 		
 		
-		
 		btnNewButton_1.setBounds(273, 61, 85, 21);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("Search Questions By Theme");
 		lblNewLabel.setBounds(131, 30, 175, 28);
 		frame.getContentPane().add(lblNewLabel);
+		
+		JButton btnNewButton_2 = new JButton("View Misc");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String[][] questions = {{null,null}};
+				String[] header = {"Theme","Contents"};
+				String theme="misc";
+				try{questions = Main.getQuestions(theme.toLowerCase()); lblNewLabel_1.setText("Displaying questions about "+theme);}
+				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());}
+				catch(ThemeMissingException ex) {lblNewLabel_1.setText("That theme has not been added.");};
+				
+				DefaultTableModel model = new DefaultTableModel(questions,header);
+				table.setModel(model);
+				table.revalidate();
+				
+				scrollPane.setViewportView(table);
+		        
+				table.setEnabled(false);
+				table.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+				     int row = table.rowAtPoint(evt.getPoint());
+				     int col = table.columnAtPoint(evt.getPoint());
+				     if (row >= 0 && col >= 0) {
+				          JOptionPane.showMessageDialog(null, table.getValueAt(row,col));
+				     	}
+					}
+				});
+				lblNewLabel_1.setText("Showing Miscellaneous");
+				SwingUtilities.updateComponentTreeUI(frame);
+			}
+		});
+		btnNewButton_2.setBounds(308, 91, 97, 21);
+		frame.getContentPane().add(btnNewButton_2);
 	
 		
 		

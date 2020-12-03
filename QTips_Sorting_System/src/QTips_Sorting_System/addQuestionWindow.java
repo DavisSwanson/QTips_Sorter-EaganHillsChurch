@@ -3,13 +3,13 @@ package QTips_Sorting_System;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.*;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class addQuestionWindow {
 
@@ -58,8 +58,12 @@ public class addQuestionWindow {
 		JTextArea textArea = new JTextArea();
 		textArea.setWrapStyleWord(true);
 		textArea.setLineWrap(true);
-		textArea.setBounds(135, 73, 149, 78);
-		frame.getContentPane().add(textArea);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(135, 73, 149, 78);
+		frame.getContentPane().add(scrollPane);
+		scrollPane.setViewportView(textArea);
+		
 		
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -69,7 +73,7 @@ public class addQuestionWindow {
 				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());}
 			}
 		});
-		btnNewButton.setBounds(320, 100, 85, 21);
+		btnNewButton.setBounds(320, 76, 85, 21);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Back");
@@ -79,8 +83,19 @@ public class addQuestionWindow {
 				mainWindow.openWindow();
 			}
 		});
-		btnNewButton_1.setBounds(320, 172, 85, 21);
+		btnNewButton_1.setBounds(320, 210, 85, 21);
 		frame.getContentPane().add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Clear");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textArea.setText("");
+			}
+		});
+		btnNewButton_2.setBounds(320, 107, 85, 21);
+		frame.getContentPane().add(btnNewButton_2);
+		
+		
 		
 		
 		

@@ -3,6 +3,8 @@ package QTips_Sorting_System;
 import java.sql.*;
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
+
 
 public class Main {
 
@@ -30,14 +32,33 @@ public class Main {
 		addQuestion.executeUpdate();
 	}
 	
+	public static void editTheme(String oldTheme) throws SQLException, ThemeMissingException {
+		
+		if(themeExists(oldTheme.toLowerCase())==false) {throw new ThemeMissingException("",null);}
+		String newTheme = JOptionPane.showInputDialog(null,"Enter the new theme to replace "+oldTheme);
+		Connection con = connect();
+		PreparedStatement stmt = con.prepareStatement("UPDATE Question SET theme='misc' WHERE theme='"+oldTheme.toLowerCase()+"'");
+		PreparedStatement stmt2 = con.prepareStatement("UPDATE Themes SET theme='"+newTheme.toLowerCase()+"' WHERE theme='"+oldTheme.toLowerCase()+"'");
+	
+		stmt.execute();
+		stmt2.execute();
+	}
+	
+	public static boolean themeExists(String theme) throws SQLException{
+		String[] themes = getThemes(); boolean exists=false;
+		for(String t : themes) {if(t.equals(theme)){exists=true;}};
+		
+		return exists;
+	}
+	
 	public static void deleteTheme(String theme) throws SQLException, ThemeMissingException {
 		Connection con = connect();
 		PreparedStatement stmt = con.prepareStatement("DELETE FROM Themes WHERE theme='"+theme.toLowerCase()+"'");
+		PreparedStatement stmt2 = con.prepareStatement("DELETE FROM Question WHERE theme='"+theme.toLowerCase()+"'");
 		
-		String[] themes = getThemes(); boolean exists=false;
-		for(String t : themes) {if(t.equals(theme)){exists=true;}};
-		if(exists==false) {throw new ThemeMissingException("",null);};
+		if(themeExists(theme.toLowerCase())==false) {throw new ThemeMissingException("",null);}
 		
+		stmt2.execute();
 		stmt.execute();
 	}
 	
@@ -50,9 +71,7 @@ public class Main {
 		ResultSet rslt = stmt.executeQuery();
 		ResultSet rslt2 = stmt2.executeQuery();
 		
-		String[] themes = getThemes(); boolean exists=false;
-		for(String t : themes) {if(t.equals(theme)){exists=true;}};
-		if(exists==false) {throw new ThemeMissingException("",null);};
+		if(themeExists(theme.toLowerCase())==false){throw new ThemeMissingException("",null);};
 		int rows=0;
 	    while(rslt.next()) {rows++;}
 	    
@@ -68,19 +87,17 @@ public class Main {
 		
 	}
 	
-	public static void addTheme(String theme) throws SQLException, ThemeExistsException {
+	public static void addTheme(String theme) throws SQLException, ThemeMissingException {
 		Connection con = connect();
-		String[] themes = getThemes();
-		boolean add=true;
-		for(String t : themes) {
-			if(t.equals(theme.toLowerCase())) {
-				throw new ThemeExistsException("Error", null);
-			}
-		}
-		if(add==true) {
+
+		if(themeExists(theme.toLowerCase())==false) {
 			PreparedStatement addTheme = con.prepareStatement("INSERT INTO Themes VALUES ('"+theme.toLowerCase()+"')");
 		    addTheme.executeUpdate();
 		}
+		else {
+			throw new ThemeMissingException("",null);
+		}
+		
 	}
 		
 		

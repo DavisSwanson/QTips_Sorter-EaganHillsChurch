@@ -3,7 +3,6 @@ package QTips_Sorting_System;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -59,7 +58,7 @@ public class mainWindow {
 				addQuestionWindow.openWindow();
 			}
 		});
-		btnNewButton.setBounds(141, 51, 125, 21);
+		btnNewButton.setBounds(150, 50, 125, 21);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Edit Themes");
@@ -69,7 +68,7 @@ public class mainWindow {
 				addThemeWindow.openWindow();
 			}
 		});
-		btnNewButton_1.setBounds(141, 105, 125, 21);
+		btnNewButton_1.setBounds(150, 98, 125, 21);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("View Questions");
@@ -79,12 +78,12 @@ public class mainWindow {
 				viewQuestionsWindow.openWindow();
 			}
 		});
-		btnNewButton_2.setBounds(141, 158, 125, 21);
+		btnNewButton_2.setBounds(150, 149, 125, 21);
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JLabel lblNewLabel = new JLabel("QTips Sorting System");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(96, 10, 221, 21);
+		lblNewLabel.setBounds(100, 10, 221, 21);
 		frame.getContentPane().add(lblNewLabel);
 	}
 }

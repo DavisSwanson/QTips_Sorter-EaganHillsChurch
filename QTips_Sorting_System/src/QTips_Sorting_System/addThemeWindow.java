@@ -1,15 +1,8 @@
 package QTips_Sorting_System;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import net.miginfocom.swing.MigLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import java.awt.GridBagLayout;
 import javax.swing.JTextField;
-import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -61,7 +54,7 @@ public class addThemeWindow {
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(116, 142, 194, 21);
+		lblNewLabel_1.setBounds(148, 142, 162, 21);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Add");
@@ -70,10 +63,10 @@ public class addThemeWindow {
 				String theme = textField.getText();
 				try{Main.addTheme(theme); lblNewLabel_1.setText("Theme Added");}
 				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());}
-				catch(ThemeExistsException ex) {lblNewLabel_1.setText("Theme has already\n been added");}
+				catch(ThemeMissingException ex) {lblNewLabel_1.setText("Theme has already\n been added");}
 			}
 		});
-		btnNewButton.setBounds(320, 112, 85, 21);
+		btnNewButton.setBounds(320, 81, 85, 21);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_2 = new JButton("Delete");
@@ -97,12 +90,24 @@ public class addThemeWindow {
 				mainWindow.openWindow();
 			}
 		});
-		btnNewButton_1.setBounds(320, 172, 85, 21);
+		btnNewButton_1.setBounds(320, 220, 85, 21);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		
 		btnNewButton_2.setBounds(320, 142, 85, 21);
 		frame.getContentPane().add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Replace");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String theme=textField.getText();
+				try{Main.editTheme(theme.toLowerCase()); lblNewLabel_1.setText("Theme Replaced");}
+				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());System.out.print(ex);}
+				catch(ThemeMissingException ex) {lblNewLabel_1.setText("That theme doesn't exist");}
+			}
+		});
+		btnNewButton_3.setBounds(320, 112, 85, 21);
+		frame.getContentPane().add(btnNewButton_3);
 		
 		
 
