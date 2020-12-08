@@ -57,6 +57,7 @@ public class addThemeWindow {
 		lblNewLabel_1.setBounds(148, 142, 162, 21);
 		frame.getContentPane().add(lblNewLabel_1);
 		
+		//Calls addTheme in main class for theme in text area
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
@@ -69,6 +70,7 @@ public class addThemeWindow {
 		btnNewButton.setBounds(320, 81, 85, 21);
 		frame.getContentPane().add(btnNewButton);
 		
+		//Calls deleteTheme in main class for theme in text area
 		JButton btnNewButton_2 = new JButton("Delete");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -88,6 +90,7 @@ public class addThemeWindow {
 		lblNewLabel.setBounds(171, 76, 121, 30);
 		frame.getContentPane().add(lblNewLabel);
 		
+		//Return to main window
 		JButton btnNewButton_1 = new JButton("Back");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,6 +105,7 @@ public class addThemeWindow {
 		btnNewButton_2.setBounds(320, 142, 85, 21);
 		frame.getContentPane().add(btnNewButton_2);
 		
+		//Replace theme with new theme by calling editTheme in main class
 		JButton btnNewButton_3 = new JButton("Replace");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

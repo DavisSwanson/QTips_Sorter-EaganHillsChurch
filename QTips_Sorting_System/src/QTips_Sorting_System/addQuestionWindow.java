@@ -47,6 +47,7 @@ public class addQuestionWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		//Label to be edited to show results to user
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(135, 158, 156, 20);
 		frame.getContentPane().add(lblNewLabel_1);
@@ -64,7 +65,7 @@ public class addQuestionWindow {
 		frame.getContentPane().add(scrollPane);
 		scrollPane.setViewportView(textArea);
 		
-		
+		//Gets string in text box and passes it to addQuestion method in Main class on button press
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -76,7 +77,7 @@ public class addQuestionWindow {
 		btnNewButton.setBounds(320, 76, 85, 21);
 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Back");
+		JButton btnNewButton_1 = new JButton("Back");//Returns to mainWindow
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -86,6 +87,7 @@ public class addQuestionWindow {
 		btnNewButton_1.setBounds(320, 210, 85, 21);
 		frame.getContentPane().add(btnNewButton_1);
 		
+		//Clears text field
 		JButton btnNewButton_2 = new JButton("Clear");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

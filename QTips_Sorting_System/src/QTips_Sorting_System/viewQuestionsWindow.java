@@ -56,6 +56,7 @@ public class viewQuestionsWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		//Returns to mainWindow
 		JButton btnNewButton = new JButton("Back");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -65,6 +66,7 @@ public class viewQuestionsWindow {
 		});
 		btnNewButton.setBounds(308, 172, 97, 21);
 		frame.getContentPane().add(btnNewButton);
+		
 		
 		textField = new JTextField();
 		textField.setBounds(147, 62, 116, 19);
@@ -81,6 +83,7 @@ public class viewQuestionsWindow {
 		scrollPane.setViewportView(table);
 		table.setEnabled(false);
 		
+		//Create mouse listner to view questions 
 		table.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent evt) {
 				     int row = table.rowAtPoint(evt.getPoint());
@@ -91,6 +94,7 @@ public class viewQuestionsWindow {
 					}
 				});
 		
+		//Search for a given theme by passing to getQuestions method in Main class and updates table
 		JButton btnNewButton_1 = new JButton("Search");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,6 +118,7 @@ public class viewQuestionsWindow {
 		lblNewLabel.setBounds(131, 30, 175, 28);
 		frame.getContentPane().add(lblNewLabel);
 		
+		//View questions for misc theme
 		JButton btnNewButton_2 = new JButton("View Misc");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

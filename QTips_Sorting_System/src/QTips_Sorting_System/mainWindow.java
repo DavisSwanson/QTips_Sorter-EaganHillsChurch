@@ -51,6 +51,7 @@ public class mainWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		//Calls addQuestion window
 		JButton btnNewButton = new JButton("Add Question");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -61,6 +62,7 @@ public class mainWindow {
 		btnNewButton.setBounds(150, 50, 125, 21);
 		frame.getContentPane().add(btnNewButton);
 		
+		//Calls themeWindow
 		JButton btnNewButton_1 = new JButton("Edit Themes");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,6 +73,7 @@ public class mainWindow {
 		btnNewButton_1.setBounds(150, 98, 125, 21);
 		frame.getContentPane().add(btnNewButton_1);
 		
+		//Calls ViewQuestion window
 		JButton btnNewButton_2 = new JButton("View Questions");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
