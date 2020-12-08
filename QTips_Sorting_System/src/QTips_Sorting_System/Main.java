@@ -53,13 +53,14 @@ public class Main {
 	
 	public static void deleteTheme(String theme) throws SQLException, ThemeMissingException {
 		Connection con = connect();
-		PreparedStatement stmt = con.prepareStatement("DELETE FROM Themes WHERE theme='"+theme.toLowerCase()+"'");
-		PreparedStatement stmt2 = con.prepareStatement("DELETE FROM Question WHERE theme='"+theme.toLowerCase()+"'");
+		PreparedStatement stmt = con.prepareStatement("UPDATE Question SET theme='misc' WHERE theme='"+theme.toLowerCase()+"'");
+		PreparedStatement stmt2 = con.prepareStatement("DELETE FROM Themes WHERE theme='"+theme.toLowerCase()+"'");
+		
 		
 		if(themeExists(theme.toLowerCase())==false) {throw new ThemeMissingException("",null);}
 		
-		stmt2.execute();
 		stmt.execute();
+		stmt2.execute();
 	}
 	
 	public static String[][] getQuestions(String theme) throws SQLException, ThemeMissingException {

@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -21,6 +20,7 @@ public class viewQuestionsWindow {
 	private JFrame frame;
 	private JTextField textField;
 	private static JTable table = new JTable();
+
 	
 	/**
 	 * Launch the application.
@@ -78,6 +78,18 @@ public class viewQuestionsWindow {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(111,91,187,105);
 		frame.getContentPane().add(scrollPane);
+		scrollPane.setViewportView(table);
+		table.setEnabled(false);
+		
+		table.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+				     int row = table.rowAtPoint(evt.getPoint());
+				     int col = table.columnAtPoint(evt.getPoint());
+				     if (row >= 0 && col >= 0) {
+				          JOptionPane.showMessageDialog(null, table.getValueAt(row,col));
+				     	}
+					}
+				});
 		
 		JButton btnNewButton_1 = new JButton("Search");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -91,21 +103,6 @@ public class viewQuestionsWindow {
 				
 				DefaultTableModel model = new DefaultTableModel(questions,header);
 				table.setModel(model);
-				table.revalidate();
-				
-				scrollPane.setViewportView(table);
-		        
-				table.setEnabled(false);
-				table.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-				     int row = table.rowAtPoint(evt.getPoint());
-				     int col = table.columnAtPoint(evt.getPoint());
-				     if (row >= 0 && col >= 0) {
-				          JOptionPane.showMessageDialog(null, table.getValueAt(row,col));
-				     	}
-					}
-				});
-				SwingUtilities.updateComponentTreeUI(frame);
 			}
 		});
 		
@@ -129,22 +126,6 @@ public class viewQuestionsWindow {
 				
 				DefaultTableModel model = new DefaultTableModel(questions,header);
 				table.setModel(model);
-				table.revalidate();
-				
-				scrollPane.setViewportView(table);
-		        
-				table.setEnabled(false);
-				table.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-				     int row = table.rowAtPoint(evt.getPoint());
-				     int col = table.columnAtPoint(evt.getPoint());
-				     if (row >= 0 && col >= 0) {
-				          JOptionPane.showMessageDialog(null, table.getValueAt(row,col));
-				     	}
-					}
-				});
-				lblNewLabel_1.setText("Showing Miscellaneous");
-				SwingUtilities.updateComponentTreeUI(frame);
 			}
 		});
 		btnNewButton_2.setBounds(308, 91, 97, 21);

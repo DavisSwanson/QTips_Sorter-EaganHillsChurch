@@ -73,9 +73,14 @@ public class addThemeWindow {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String theme=textField.getText();
-				try{Main.deleteTheme(theme.toLowerCase()); lblNewLabel_1.setText("Theme Deleted");}
-				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());System.out.print(ex);}
-				catch(ThemeMissingException ex) {lblNewLabel_1.setText("That theme doesn't exist");}
+				if(theme.equals("misc")) {
+					lblNewLabel_1.setText("Cannot delete misc theme");
+				}
+				else {
+					try{Main.deleteTheme(theme.toLowerCase()); lblNewLabel_1.setText("Theme Deleted");}
+					catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());System.out.print(ex);}
+					catch(ThemeMissingException ex) {lblNewLabel_1.setText("That theme doesn't exist");}
+				}
 			}
 		});
 		
