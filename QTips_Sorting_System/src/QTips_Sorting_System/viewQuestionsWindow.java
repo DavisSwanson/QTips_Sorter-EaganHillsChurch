@@ -19,7 +19,6 @@ public class viewQuestionsWindow {
 
 	private JFrame frame;
 	private JTextField textField;
-	private static JTable table = new JTable();
 
 	
 	/**
@@ -56,6 +55,25 @@ public class viewQuestionsWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		JTable table = new JTable();
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(111,91,187,105);
+		frame.getContentPane().add(scrollPane);
+		scrollPane.setViewportView(table);
+		table.setEnabled(false);
+		
+		//Create mouse listener to view questions 
+		table.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+				     int row = table.rowAtPoint(evt.getPoint());
+				     int col = table.columnAtPoint(evt.getPoint());
+				     if (row >= 0 && col >= 0) {
+				          JOptionPane.showMessageDialog(null, table.getValueAt(row,col));
+				     	}
+					}
+				});
+		
 		//Returns to mainWindow
 		JButton btnNewButton = new JButton("Back");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -77,22 +95,6 @@ public class viewQuestionsWindow {
 		lblNewLabel_1.setBounds(117, 220, 189, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(111,91,187,105);
-		frame.getContentPane().add(scrollPane);
-		scrollPane.setViewportView(table);
-		table.setEnabled(false);
-		
-		//Create mouse listner to view questions 
-		table.addMouseListener(new java.awt.event.MouseAdapter() {
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-				     int row = table.rowAtPoint(evt.getPoint());
-				     int col = table.columnAtPoint(evt.getPoint());
-				     if (row >= 0 && col >= 0) {
-				          JOptionPane.showMessageDialog(null, table.getValueAt(row,col));
-				     	}
-					}
-				});
 		
 		//Search for a given theme by passing to getQuestions method in Main class and updates table
 		JButton btnNewButton_1 = new JButton("Search");
