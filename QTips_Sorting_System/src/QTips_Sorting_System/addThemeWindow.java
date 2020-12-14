@@ -86,7 +86,7 @@ public class addThemeWindow {
 			}
 		});
 		
-		JLabel lblNewLabel = new JLabel("Add New Theme");
+		JLabel lblNewLabel = new JLabel("Edit Theme");
 		lblNewLabel.setBounds(171, 76, 121, 30);
 		frame.getContentPane().add(lblNewLabel);
 		
@@ -110,9 +110,13 @@ public class addThemeWindow {
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String theme=textField.getText();
-				try{Main.editTheme(theme.toLowerCase()); lblNewLabel_1.setText("Theme Replaced");}
-				catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());System.out.print(ex);}
-				catch(ThemeMissingException ex) {lblNewLabel_1.setText("That theme doesn't exist");}
+				if(theme.equals("misc")) {
+					lblNewLabel_1.setText("Cannot replace misc theme");
+				}
+				else {
+					try{Main.editTheme(theme.toLowerCase()); lblNewLabel_1.setText("Theme Replaced");}
+					catch(SQLException ex) {lblNewLabel_1.setText(ex.toString());System.out.print(ex);}
+					catch(ThemeMissingException ex) {lblNewLabel_1.setText("That theme doesn't exist");}}
 			}
 		});
 		btnNewButton_3.setBounds(320, 112, 85, 21);

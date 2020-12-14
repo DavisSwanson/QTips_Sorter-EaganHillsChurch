@@ -7,6 +7,10 @@ import javax.swing.JOptionPane;
 
 
 public class Main {
+	
+	static boolean isPunctuation(char c) { 
+	    return (c == '?' || c == '!' || c == '.'); 
+	}
 
 	public static Connection connect() throws SQLException //Connects to database
 	{
@@ -137,11 +141,13 @@ public class Main {
 		
 	    String[] question = null;
 		question=s.split(" ");
+		char lastChar = question[question.length-1].charAt((question[question.length-1]).length()-1);
+		if(isPunctuation(lastChar)==true) {question[question.length-1]=question[question.length-1].substring(0,question[question.length-1].length()-1);}
 		int[] counts=new int[themes.length];
 		Arrays.fill(counts, 0);
 		//Splits string into individual words and store words in an array
 		
-		for(String word: question)//Checks for number of occurences of theme keywords in a string
+		for(String word: question)//Checks for number of occurrences of theme keywords in a string
 		{
 			for(int j=0;j<themes.length;j++) {
 				if(word.equals(themes[j])) {

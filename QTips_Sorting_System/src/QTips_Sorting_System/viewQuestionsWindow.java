@@ -92,7 +92,7 @@ public class viewQuestionsWindow {
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(117, 220, 189, 13);
+		lblNewLabel_1.setBounds(111, 221, 268, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		
